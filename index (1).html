@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDX LOGIN</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            border: 2px solid neonred;
+            box-shadow: 0 0 15px white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #111;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: neonblue;
+            text-shadow: 0 0 5px black;
+            margin-bottom: 20px;
+        }
+        .linear {
+            width: 200px;
+            height: 50px;
+            border: 2px solid neonblue;
+            box-shadow: 0 0 15px black;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 15px;
+            background-color: #222;
+        }
+        .linear input {
+            width: 100%;
+            border: none;
+            background: none;
+            color: white;
+            outline: none;
+            font-size: 16px;
+        }
+        .button {
+            width: 200px;
+            height: 50px;
+            border: none;
+            border-radius: 8px;
+            background-color: neonblue;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px black;
+        }
+        .button:hover {
+            background-color: #0044cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">SDX LOGIN</div>
+        <div class="linear">
+            <input type="text" id="licenseKey" placeholder="License Key">
+        </div>
+        <button class="button" onclick="checkLogin()">LOGIN</button>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const licenseKey = document.getElementById("licenseKey").value;
+            if (licenseKey === "SDX") {
+                window.location.href = "https://sanjayusjsjs.github.io/Newsdxbhaj/";
+            } else {
+                alert("Error: Invalid License Key");
+            }
+        }
+    </script>
+</body>
+</html>
