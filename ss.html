@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Your existing CSS */
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="button" class="login-btn" onclick="login()">Login</button>
+                <p id="error-message" style="color: red; text-align: center; display: none;">Incorrect username or password.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Page (admin-dashboard.html) -->
+    <div id="admin-panel" class="admin-panel-container" style="display: none;">
+        <nav class="admin-nav">
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Users</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="admin-content">
+            <h1>Welcome to the Admin Panel</h1>
+            <p>This is your admin dashboard where you can manage users, settings, and more.</p>
+            <div class="admin-box">
+                <h2>Users List</h2>
+                <ul id="users-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Login function
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Send login request to server
+            fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hide login page, show admin panel
+                    document.querySelector(".login-container").style.display = "none";
+                    document.getElementById("admin-panel").style.display = "flex";
+
+                    // Fetch the list of users from the server
+                    fetchUsers();
+                } else {
+                    // Show error message
+                    document.getElementById("error-message").style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Fetch and display users list
+        function fetchUsers() {
+            fetch('http://localhost:3000/users')
+            .then(response => response.json())
+            .then(users => {
+                const usersList = document.getElementById('users-list');
+                usersList.innerHTML = '';
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user.username;
+                    usersList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
+        }
+    </script>
+</body>
+</html>
